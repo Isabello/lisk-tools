@@ -32,8 +32,12 @@ wget https://raw.githubusercontent.com/vinay20045/json-to-csv/master/json_to_csv
 To install this tool run the following
 
 cd ~
+
 git clone https://github.com/isabello/lisk-ban-tool.git
+
 cd lisk-ban-tool
+
 mkdir ban_list
+
 
 bash banNodes.sh
