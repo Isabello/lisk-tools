@@ -1,5 +1,6 @@
 #!/bin/bash
-mkdir ban_list
+
+
 python ~/lisk-api/python2/helper.py -o peer_list > ban_list/peer_list.json
 python ~/lisk-api/python2/json_to_csv.py peers ban_list/peer_list.json ban_list/peer_list.csv
 
@@ -12,4 +13,4 @@ while IFS= read -r line
 do
 grep $line ban_list/peer_list_clean.csv | awk -F',' '{system ("sudo ipset add excluded_list " $1)}'
 done < "versions"
-rm -rf ban_list
+rm -rf ban_list/*
