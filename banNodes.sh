@@ -5,7 +5,7 @@ python ~/lisk-api/python2/json_to_csv.py peers ~/ban_testing/peer_list.json ~/ba
 
 
 sed 's/peer.*//' ~/ban_testing/peer_list.csv > ~/ban_testing/peer_list1.csv
- sed 's/"//g' ~/ban_testing/peer_list1.csv > ~/ban_testing/peer_list2.csv
+sed 's/"//g' ~/ban_testing/peer_list1.csv > ~/ban_testing/peer_list2.csv
 sed '/^\s*$/d'  ~/ban_testing/peer_list2.csv > ~/ban_testing/peer_list_clean.csv
 
 while IFS= read -r line
