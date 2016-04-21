@@ -11,6 +11,6 @@ sed '/^\s*$/d'  ban_list/peer_list2.csv > ban_list/peer_list_clean.csv
 
 while IFS= read -r line
 do
-grep $line ban_list/peer_list_clean.csv | awk -F',' '{system ("sudo ipset add excluded_list " $1)}'
+grep -w "$line" ban_list/peer_list_clean.csv | awk -F',' '{system ("sudo ipset add excluded_list " $1)}'
 done < "versions"
 rm -rf ban_list/*
