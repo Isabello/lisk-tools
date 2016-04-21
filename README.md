@@ -40,4 +40,7 @@ cd lisk-ban-tool
 mkdir ban_list
 
 
+please ensure you have authenticated for sudo at this point as the script directly relies on it not prompting for password
+
+
 bash banNodes.sh
