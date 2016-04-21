@@ -1,6 +1,8 @@
 # Lisk-Ban-Tool
 
-This is tool is in testing for banning nodes using IPSET inside of linux. You will need the following software:
+This is tool is in testing for banning Lisk nodes using IPSET that are running versions prior to 0.1.4 and are peered to your node.
+
+You will need the following software:
 
 IPSet - Install and create an ipset
 
