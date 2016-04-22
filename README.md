@@ -3,6 +3,7 @@
 This is tool is in testing for banning Lisk nodes using IPSET that are running versions prior to 0.1.4 and are peered to your node.
 
 NOTE: This install guide assumes you have git installed. Install it by running: sudo apt-get install git
+
 NOTE2: This tool relies on your kernel supporting the use of IPSET
 
 ### Automated install
