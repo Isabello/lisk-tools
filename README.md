@@ -6,6 +6,8 @@ NOTE: This install guide assumes you have git installed. Install it by running: 
 
 NOTE2: This tool relies on your kernel supporting the use of IPSET
 
+NOTE3: This tool requires that python be installed due to the external tools used.
+
 ### Automated install
 
 Change directory to your home folder
