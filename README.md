@@ -2,6 +2,30 @@
 
 This is tool is in testing for banning Lisk nodes using IPSET that are running versions prior to 0.1.4 and are peered to your node.
 
+### Automated install
+
+Change directory to your home folder
+
+cd ~
+
+wget https://raw.githubusercontent.com/Isabello/Lisk-Ban-Tool/master/installBanTool.sh
+
+chmod 700 installBanTool.sh
+
+bash installBanTool.sh
+
+The tool is now installed.
+
+
+### Tool usage
+
+cd lisk-ban-tool
+
+bash banTool.sh
+
+You can check the results with:  sudo ipset list
+
+### Manual Install Instructions
 You will need the following software:
 
 IPSet - Install and create an ipset
