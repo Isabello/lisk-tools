@@ -1,5 +1,12 @@
 #!/bin/bash
-#initialize array variables
+#initialize array variables and get current local node version
+
+python ~/lisk-api/python2/helper.py -o  peer_version > ban_list/my_version.json
+sed 's/,//g' ban_list/my_version.json > ban_list/my_version_clean.json
+
+declare -a versions=(0.1.1 0.1.2 0.1.3)
+acceptable_version=`grep version ban_list/my_version_clean.json | awk -F': ' '{system ("echo " $2)}'`
+
 
 declare -a versions=(0.1.1 0.1.2 0.1.3)
 acceptable_version=0.1.4
