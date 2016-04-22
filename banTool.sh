@@ -4,12 +4,7 @@
 python ~/lisk-api/python2/helper.py -o  peer_version > ban_list/my_version.json
 sed 's/,//g' ban_list/my_version.json > ban_list/my_version_clean.json
 
-declare -a versions=(0.1.1 0.1.2 0.1.3)
 acceptable_version=`grep version ban_list/my_version_clean.json | awk -F': ' '{system ("echo " $2)}'`
-
-
-declare -a versions=(0.1.1 0.1.2 0.1.3)
-acceptable_version=0.1.4
 
 #Get peerlist from local host
 python ~/lisk-api/python2/helper.py -o peer_list > ban_list/peer_list.json
@@ -23,9 +18,8 @@ sed 's/"//g' ban_list/peer_list1.csv > ban_list/peer_list2.csv
 sed '/^\s*$/d'  ban_list/peer_list2.csv > ban_list/peer_list_clean.csv
 
 #Read in and ban unnacceptable versions
-for i in ${versions[@]}; do
-grep -w "$i" ban_list/peer_list_clean.csv | awk -F',' '{system ("sudo ipset add excluded_list " $1)}'
-done
+
+grep -v $acceptable_version ban_list/peer_list_clean.csv | awk -F',' '{system ("sudo ipset add excluded_list " $1)}'
 
 #clean up files
 rm -rf ban_list/*
