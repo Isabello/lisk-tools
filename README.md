@@ -2,7 +2,10 @@
 
 This tool will backup the PG database with a time stamp. You can also use it to restore the database from the same tool.
 
-Usage:
+
+Usage: 
+
+cd ~/Lisk_Management_Tools/
 
 Backup Database
 
@@ -26,7 +29,7 @@ NOTE2: This tool requires that python be installed due to the external tools use
 
 ### Tool usage
 
-cd Lisk_Management_Tools
+cd ~/Lisk_Management_Tools/
 
 bash banTool.sh
 
