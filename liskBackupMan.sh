@@ -57,7 +57,7 @@ create_database() {
 backup_db() {
 ##create backup folder
 mkdir -p backup_location/pg_backup
-pg_dump "$DB_NAME" > backup_location/pg_backup/lisk_backup-`date '+%Y-%m-%d-%H.%M.%S'`
+pg_dump "$DB_NAME" > backup_location/pg_backup/lisk_backup_block-`curl http://localhost:7000/api/loader/status/sync | cut -d: -f5 | cut -d} -f1` `
 echo "Backup Complete!"
 }
 
