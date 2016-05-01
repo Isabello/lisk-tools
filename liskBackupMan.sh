@@ -55,9 +55,10 @@ create_database() {
 
 ##Backup DB
 backup_db() {
-##create backup folder
-mkdir -p backup_location/pg_backup
-pg_dump "$DB_NAME" > backup_location/pg_backup/lisk_backup_block-`curl http://localhost:7000/api/loader/status/sync | cut -d: -f5 | cut -d} -f1`
+  
+find backup_location/pg_backup/* -mtime +1 -exec rm {} \;
+pg_dump "$DB_NAME" | gzip backup_location/pg_backup/lisk_backup_block-`curl http://localhost:7000/api/loader/status/sync | cut -d: -f5 | cut -d} -f1`.gz  
+
 echo "Backup Complete!"
 }
 
@@ -82,9 +83,11 @@ done
 
 bash lisk_home/lisk.sh stop
 
+gunzip $restore_file
+
 create_database
 
-psql -q -U "$DB_USER" -d "$DB_NAME" < $restore_file &> /dev/null
+gunzip -c $restore_file | psql -q -U "$DB_USER" -d "$DB_NAME" &> /dev/null
 echo "Restore Complete!"
 
 bash lisk_home/lisk.sh start
