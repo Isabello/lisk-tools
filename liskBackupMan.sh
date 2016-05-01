@@ -56,7 +56,7 @@ create_database() {
 backup_db() {
 ##create backup folder
 mkdir -p ~/pg_backup
-pg_dump lisk_test > ~/pg_backup/lisk_backup-`date '+%Y-%m-%d-%H.%M.%S'`
+pg_dump "$DB_NAME" > ~/pg_backup/lisk_backup-`date '+%Y-%m-%d-%H.%M.%S'`
 }
 
 ##DB Restore
