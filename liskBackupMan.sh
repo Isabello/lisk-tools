@@ -51,6 +51,7 @@ create_database() {
     echo "√ Postgres database created successfully."
   fi
 }
+#End Thanks Oliver for these pieces
 
 ##Backup DB
 backup_db() {
@@ -82,7 +83,7 @@ bash ~/lisk-0.2.0-Linux-x86_64/lisk.sh stop
 
 create_database
 
-psql -U "$DB_USER" -d "$DB_NAME" < $restore_file
+psql -q -U "$DB_USER" -d "$DB_NAME" < $restore_file
 
 bash ~/lisk-0.2.0-Linux-x86_64/lisk.sh start
 
