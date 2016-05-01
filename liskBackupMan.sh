@@ -57,7 +57,7 @@ create_database() {
 backup_db() {
   
 find backup_location/pg_backup/* -mtime +1 -exec rm {} \;
-pg_dump "$DB_NAME" | gzip backup_location/pg_backup/lisk_backup_block-`curl http://localhost:7000/api/loader/status/sync | cut -d: -f5 | cut -d} -f1`.gz  
+pg_dump "$DB_NAME" | gzip > backup_location/pg_backup/lisk_backup_block-`curl http://localhost:7000/api/loader/status/sync | cut -d: -f5 | cut -d} -f1`.gz  
 
 echo "Backup Complete!"
 }
