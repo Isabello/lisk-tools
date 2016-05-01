@@ -99,7 +99,7 @@ ls -ltra backup_location/pg_backup
 }
 
 schedule_backups() {
-cronjob_line="*/30 * * * * /bin/bash ~/Lisk_Management_Tools/liskBackupMan.sh backup"
+cronjob_line="*/30 * * * * /bin/bash tools_location/Lisk_Management_Tools/liskBackupMan.sh backup"
 crontab -l | grep -q liskBackupMan.sh && echo "Backups already scheduled!" || (crontab -u $DB_USER -l; echo "$cronjob_line" ) | crontab -u $DB_USER - | echo "Backups scheduled for every 30 minutes!"
 }
 
