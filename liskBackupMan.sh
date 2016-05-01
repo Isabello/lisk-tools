@@ -56,15 +56,15 @@ create_database() {
 ##Backup DB
 backup_db() {
 ##create backup folder
-mkdir -p ~/pg_backup
-pg_dump "$DB_NAME" > ~/pg_backup/lisk_backup-`date '+%Y-%m-%d-%H.%M.%S'`
+mkdir -p backup_location/pg_backup
+pg_dump "$DB_NAME" > backup_location/pg_backup/lisk_backup-`date '+%Y-%m-%d-%H.%M.%S'`
 echo "Backup Complete!"
 }
 
 ##DB Restore
 restore_db() {
 
-select FILENAME in ~/pg_backup/*;
+select FILENAME in backup_location/pg_backup/*;
         do
         case $FILENAME in
                 "$EXIT" )
@@ -80,19 +80,19 @@ select FILENAME in ~/pg_backup/*;
         esac
 done
 
-bash ~/lisk-0.2.0-Linux-x86_64/lisk.sh stop
+bash lisk_home/lisk.sh stop
 
 create_database
 
 psql -q -U "$DB_USER" -d "$DB_NAME" < $restore_file &> /dev/null
 echo "Restore Complete!"
 
-bash ~/lisk-0.2.0-Linux-x86_64/lisk.sh start
+bash lisk_home/lisk.sh start
 
 }
 
 list_backups() {
-ls -ltra ~/pg_backup
+ls -ltra backup_location/pg_backup
 }
 
 case $1 in
