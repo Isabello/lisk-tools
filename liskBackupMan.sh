@@ -89,7 +89,7 @@ gunzip -c $restore_file | psql -q -U "$DB_USER" -d "$DB_NAME" &> /dev/null
 
 restore_file_cut=`cut -d. -f1 $restore_file`
 
-gzip $restore_file_cut.gz
+cat $restore_file_cut | gzip gzip $restore_file
 
 echo "Restore Complete!"
 
