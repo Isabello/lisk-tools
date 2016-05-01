@@ -2,6 +2,7 @@
 
 default_tools_location=~
 default_backup_location=~
+default_lisk_location=~/lisk-0.2.0-Linux-x86_64/
 
 read -r -p "Where do you want to install to? (Default $default_tools_location):  " tools_location
 tools_location=${tools_location:-$default_tools_location}
@@ -12,11 +13,19 @@ exit 2;
 fi
 
 
-read -r -p "Where do you want to install to? (Default $default_backup_location):  " backup_location
+read -r -p "Where do you want backups to go? (Default $default_backup_location):  " backup_location
 backup_location=${backup_location:-$default_backup_location}
 if [[ ! -r "$backup_location" ]]
 then
 echo "$backup_location is not valid, please check and re-excute"
+exit 2;
+fi
+
+read -r -p "Where do you have lisk installed to? (Default $default_lisk_location):  " lisk_location
+lisk_location=${lisk_location:-$default_lisk_location}
+if [[ ! -r "$lisk_location" ]]
+then
+echo "$lisk_location is not valid, please check and re-excute"
 exit 2;
 fi
 
@@ -58,3 +67,6 @@ cd Lisk_Management_Tools
 
 mkdir -p $tools_location/Lisk_Management_Tools/ban_list
 mkdir -p $backup_location/pg_backups
+
+sed -i 's/backup_location/$backup_location/g' liskBackupMan.sh
+sed -i 's/lisk_home/$lisk_location/g' liskBackupMan.sh
