@@ -70,3 +70,4 @@ mkdir -p $backup_location/pg_backups
 
 sed -i "s|backup_location|$backup_location|g" "liskBackupMan.sh"
 sed -i "s|lisk_home|$lisk_location|g" "liskBackupMan.sh"
+sed -i "s|tools_location|$tools_location|g" "liskBackupMan.sh"
