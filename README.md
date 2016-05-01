@@ -5,12 +5,15 @@ This tool will backup the PG database with a time stamp. You can also use it to 
 Usage:
 
 Backup Database
+
 bash liskBackupMan.sh backup
 
 Restore Database
+
 bash liskBackupMan.sh restore
 
 List Backups
+
 bash liskBackupMan.sh list
 
 # Lisk-Ban-Tool Description
