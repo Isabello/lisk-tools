@@ -29,7 +29,7 @@ echo "$lisk_location is not valid, please check and re-excute"
 exit 2;
 fi
 
-read -p "Do you want to install the Ban Tool? Y or N: " -n 1 -r
+read -p "Do you want to install the Ban Tool? Y or N: " -n 1 -r -i "N"
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
 
