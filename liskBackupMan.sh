@@ -84,7 +84,7 @@ bash ~/lisk-0.2.0-Linux-x86_64/lisk.sh stop
 
 create_database
 
-psql -q -U "$DB_USER" -d "$DB_NAME" < $restore_file
+psql -q -U "$DB_USER" -d "$DB_NAME" < $restore_file &> /dev/null
 echo "Restore Complete!"
 
 bash ~/lisk-0.2.0-Linux-x86_64/lisk.sh start
