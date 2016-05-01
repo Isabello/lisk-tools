@@ -95,6 +95,11 @@ list_backups() {
 ls -ltra backup_location/pg_backup
 }
 
+schedule_backups() {
+line="*/30 * * * * tools_location/Lisk_Management_Tools/liskBackupMan.sh backup"
+(crontab -u $DB_USER -l; echo "$line" ) | crontab -u $DB_USER -
+}
+
 case $1 in
 "restore")
   restore_db
@@ -105,9 +110,13 @@ case $1 in
 "list")
   list_backups
   ;;
+"schedule")
+ schedule_backups
+  ;;
 *)
   echo "Error: Unrecognized command."
   echo ""
-  echo "Available commands are: list backup restore"
+  echo "Available commands are: list backup restore schedule"
   ;;
 esac
+
