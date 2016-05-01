@@ -1,9 +1,10 @@
 #!/bin/bash
 
-##create backup folder
-mkdir -p ~/pg_backup
+
 
 backup_db() {
+##create backup folder
+mkdir -p ~/pg_backup
 ## backup DB
 sudo -u postgres pg_dumpall > ~/pg_backup/lisk_backup-`date '+%Y-%m-%d-%H.%M.%S'`
 }
