@@ -94,7 +94,7 @@ bash lisk_home/lisk.sh start
 }
 
 list_backups() {
-ls -ltrAa backup_location/pg_backup
+ls -ltrA backup_location/pg_backup
 }
 
 schedule_backups() {
