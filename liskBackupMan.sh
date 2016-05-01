@@ -83,11 +83,14 @@ done
 
 bash lisk_home/lisk.sh stop
 
-gunzip $restore_file
-
 create_database
 
 gunzip -c $restore_file | psql -q -U "$DB_USER" -d "$DB_NAME" &> /dev/null
+
+restore_file_cut=`cut -d. -f1 $restore_file`
+
+gzip $restore_file_cut.gz
+
 echo "Restore Complete!"
 
 bash lisk_home/lisk.sh start
