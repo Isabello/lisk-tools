@@ -66,7 +66,7 @@ rm -f master.zip
 cd Lisk_Management_Tools
 
 mkdir -p $tools_location/Lisk_Management_Tools/ban_list
-mkdir -p $backup_location/pg_backups
+mkdir -p $backup_location/pg_backup
 
 sed -i "s|backup_location|$backup_location|g" "liskBackupMan.sh"
 sed -i "s|lisk_home|$lisk_location|g" "liskBackupMan.sh"
