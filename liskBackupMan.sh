@@ -65,12 +65,13 @@ echo "Backup Complete!"
 ##DB Restore
 restore_db() {
 
+echo "Select snapshot to restore or type exit to quit"
 select FILENAME in backup_location/pg_backup/*;
         do
         case $FILENAME in
                 "$EXIT" )
                 echo "Exiting without restore"
-                end
+                exit
                 ;;
 
                 *)
@@ -90,6 +91,32 @@ gunzip -c $restore_file | psql -q -U "$DB_USER" -d "$DB_NAME" &> /dev/null
 echo "Restore Complete!"
 
 bash lisk_home/lisk.sh start
+
+}
+
+##Remote DB Snap
+remote_snap() {
+
+echo "Select snapshot to grab or type exit to quit"
+remote_servers=("https://downloads.lisk.io/lisk/test/blockchain.db.gz" "https://lisktools.io/backups/lisk_pg_backup.gz")
+select SERVER in "${remote_servers[@]}" ;
+        do
+        case $SERVER in
+                "$EXIT" )
+                echo "Exiting without restore"
+                exit 0
+                ;;
+
+                *)
+                rm -rf backup_location/pg_backup/blockchain.db.gz &> /dev/null
+                rm -rf backup_location/pg_backup/lisk_pg_backup.gz &> /dev/null
+                wget $SERVER -P backup_location/pg_backup/
+                echo "Grabbed Remote Backup!"
+                break
+                ;;
+        esac
+done
+restore_db
 
 }
 
@@ -116,6 +143,9 @@ case $1 in
 "schedule")
  schedule_backups
   ;;
+"remote")
+ remote_snap
+ ;;
 *)
   echo "Error: Unrecognized command."
   echo ""
