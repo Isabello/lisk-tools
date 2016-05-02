@@ -53,7 +53,7 @@ fi
 
 #fi
 
-rm -rf $tools_location/Lisk_Management_Tools
+rm -rf $tools_location/Lisk_Management_Tools &> /dev/null
 
 cd $tools_location
 
