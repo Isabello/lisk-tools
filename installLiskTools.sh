@@ -53,6 +53,8 @@ fi
 
 #fi
 
+rm -rf $tools_location/Lisk_Management_Tools
+
 cd $tools_location
 
 wget https://github.com/Isabello/Lisk_Management_Tools/archive/master.zip
