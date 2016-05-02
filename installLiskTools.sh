@@ -29,9 +29,9 @@ echo "$lisk_location is not valid, please check and re-excute"
 exit 2;
 fi
 
-read -p "Do you want to install the Ban Tool? Y or N: " -n 1 -r -i "N"
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
+#read -p "Do you want to install the Ban Tool? Y or N: " -n 1 -r -i "N"
+#if [[ $REPLY =~ ^[Yy]$ ]]
+#then
 
 #sudo apt-get -qqy install ipset
 
@@ -51,7 +51,7 @@ then
 
 #wget https://raw.githubusercontent.com/vinay20045/json-to-csv/master/json_to_csv.py
 
-fi
+#fi
 
 cd $tools_location
 
