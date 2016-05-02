@@ -149,7 +149,7 @@ case $1 in
 *)
   echo "Error: Unrecognized command."
   echo ""
-  echo "Available commands are: list backup restore schedule"
+  echo "Available commands are: list backup restore schedule remote"
   ;;
 esac
 
