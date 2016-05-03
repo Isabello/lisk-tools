@@ -56,7 +56,7 @@ create_database() {
 ##Backup DB
 backup_db() {
   
-find backup_location/pg_backup/* -mtime +1 -exec rm {} \;
+find backup_location/pg_backup/* -type f -mmin +1200 -delete
 pg_dump "$DB_NAME" | gzip > backup_location/pg_backup/lisk_backup_block-`curl -s http://localhost:7000/api/loader/status/sync | cut -d: -f5 | cut -d} -f1`.gz  
 
 echo "Backup Complete!"
