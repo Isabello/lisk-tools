@@ -2,10 +2,15 @@
 
 
 #Thanks Oliver for these pieces
+. "$lisk_home/shared.sh"
+
 UNAME=$(uname)
 DB_USER=$USER
 DB_NAME="lisk_test"
 DB_PASS="password"
+DB_DATA="lisk_home/pgsql/data"
+DB_LOG_FILE="lisk_home/pgsql.log"
+
 case "$UNAME" in
 "Darwin")
   DB_SUPER=$USER
@@ -24,11 +29,9 @@ esac
 
 
 create_user() {
-  stop_lisk &> /dev/null
-  drop_database &> /dev/null
-  sudo -u $DB_SUPER dropuser --if-exists "$DB_USER" &> /dev/null
-  sudo -u $DB_SUPER createuser --createdb "$DB_USER" &> /dev/null
-  sudo -u $DB_SUPER psql -d postgres -c "ALTER USER "$DB_USER" WITH PASSWORD '$DB_PASS';" &> /dev/null
+ dropuser --if-exists "$DB_USER" &> /dev/null
+ createuser --createdb "$DB_USER" &> /dev/null
+ psql -qd postgres -c "ALTER USER "$DB_USER" WITH PASSWORD '$DB_PASS';" &> /dev/null
   if [ $? != 0 ]; then
     echo "X Failed to create postgres user."
     exit 0
@@ -37,12 +40,8 @@ create_user() {
   fi
 }
 
-drop_database() {
-  dropdb --if-exists "$DB_NAME" &> /dev/null
-}
-
 create_database() {
-  drop_database
+  dropdb --if-exists "$DB_NAME" &> /dev/null
   createdb "$DB_NAME" &> /dev/null
   if [ $? != 0 ]; then
     echo "X Failed to create postgres database."
@@ -51,6 +50,19 @@ create_database() {
     echo "√ Postgres database created successfully."
   fi
 }
+
+start_postgresql() {
+  pg_ctl -D $DB_DATA -l $DB_LOG_FILE start &> /dev/null
+  if [ $? != 0 ]; then
+    echo "X Failed to start postgresql."
+    exit 1
+  fi
+}
+
+stop_postgresql() {
+  pg_ctl -D $DB_DATA -l $DB_LOG_FILE stop &> /dev/null
+}
+
 #End Thanks Oliver for these pieces
 
 ##Backup DB
@@ -84,6 +96,8 @@ done
 
 bash lisk_home/lisk.sh stop
 
+start_postgresql
+create_user
 create_database
 
 gunzip -c $restore_file | psql -q -U "$DB_USER" -d "$DB_NAME" &> /dev/null
