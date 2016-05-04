@@ -2,7 +2,8 @@
 
 
 #Thanks Oliver for these pieces
-. "$lisk_home/shared.sh"
+export PATH="lisk_home/bin:lisk_home/pgsql/bin:$PATH"
+export LD_LIBRARY_PATH="lisk_home/pgsql/lib:$LD_LIBRARY_PATH"
 
 UNAME=$(uname)
 DB_USER=$USER
@@ -59,10 +60,6 @@ start_postgresql() {
   fi
 }
 
-stop_postgresql() {
-  pg_ctl -D $DB_DATA -l $DB_LOG_FILE stop &> /dev/null
-}
-
 #End Thanks Oliver for these pieces
 
 ##Backup DB
@@ -97,7 +94,10 @@ done
 bash lisk_home/lisk.sh stop
 
 start_postgresql
+sleep 2
+
 create_user
+
 create_database
 
 gunzip -c $restore_file | psql -q -U "$DB_USER" -d "$DB_NAME" &> /dev/null
