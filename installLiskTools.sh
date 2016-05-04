@@ -2,7 +2,7 @@
 
 default_tools_location=~
 default_backup_location=~
-default_lisk_location=~/lisk-0.2.0-Linux-x86_64
+default_lisk_location=~/lisk-0.2.1-Linux-x86_64
 
 read -r -p "Where do you want to install to? (Default $default_tools_location):  " tools_location
 tools_location=${tools_location:-$default_tools_location}
