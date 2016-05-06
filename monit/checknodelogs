@@ -1,0 +1,7 @@
+####################### B E G I N   O F   C O N F - F I L E #######################
+
+check file messages with path $lisk_home/logs.log
+ignore match 'cause":5'
+if match "Fork" then alert
+
+######################### E N D   O F   C O N F - F I L E #########################
