@@ -1,0 +1,8 @@
+####################### B E G I N   O F   C O N F - F I L E #######################
+
+check process node
+matching "node"
+start program = "/bin/bash -c 'lisk_home/lisk.sh restart'"
+stop program = "/bin/bash -c  'lisk_home/lisk.sh stop'"
+
+######################### E N D   O F   C O N F - F I L E #########################
