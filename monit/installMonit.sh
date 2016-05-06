@@ -34,7 +34,7 @@ exit 2
 fi
 
 rm -rf /etc/monit/monitrc
-cp ./monitrc /etc/monit/monitrc
+mv ./monitrc /etc/monit/monitrc
 chmod 700 /etc/monit/monitrc
 
 /etc/init.d/monit status
