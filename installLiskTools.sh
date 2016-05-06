@@ -54,20 +54,21 @@ fi
 #fi
 
 rm -rf $tools_location/Lisk_Management_Tools &> /dev/null
+rm -rf $tools_location/lisk-tools &> /dev/null
 
 cd $tools_location
 
-wget https://github.com/Isabello/Lisk_Management_Tools/archive/master.zip
+wget https://github.com/Isabello/lisk-tools/archive/master.zip
 
 unzip master.zip
 
-mv Lisk_Management_Tools-master/ Lisk_Management_Tools
+mv lisk-tools-master/ lisk-tools
 
 rm -f master.zip
 
 cd Lisk_Management_Tools
 
-mkdir -p $tools_location/Lisk_Management_Tools/ban_list
+mkdir -p $tools_location/lisk-tools/ban_list
 mkdir -p $backup_location/pg_backup
 
 sed -i "s|backup_location|$backup_location|g" "liskBackupMan.sh"
