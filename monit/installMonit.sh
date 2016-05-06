@@ -36,6 +36,7 @@ fi
 rm -rf /etc/monit/monitrc
 mv ./monitrc /etc/monit/monitrc
 chmod 700 /etc/monit/monitrc
+rm -rf monitrc
 
 /etc/init.d/monit status
 /etc/init.d/monit restart
@@ -47,3 +48,5 @@ find ./check* -type f -exec  sed -i "s#lisk_home#$lisk_location#g" {} \;
 cp checknodeprocess /etc/monit/conf.d/checknodeprocess
 cp checknodelogs /etc/monit/conf.d/checknodelogs
 cp checknodesize /etc/monit/conf.d/checknodesize
+
+rm -f ./checknode*
