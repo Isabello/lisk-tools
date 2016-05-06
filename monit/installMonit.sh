@@ -40,7 +40,7 @@ chmod 700 /etc/monit/monitrc
 /etc/init.d/monit restart
 
 rm -rf /etc/monit/conf.d/checknode*
-sed -i "s|lisk_home|$lisk_location|g" "check*"
+find ./check* -type f -exec  sed -i "s#lisk_home#$lisk_location#g" {} \;
 cp checknodeprocess /etc/monit/conf.d/checknodeprocess
 cp checknodelogs /etc/monit/conf.d/checknodelogs
 cp checknodesize /etc/monit/conf.d/checknodesize
