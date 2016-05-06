@@ -2,9 +2,9 @@
 
 check process node
 matching "node"
-    start program = "/opt/lisk/lisk/lisk.sh restart"
+    start program = "lisk_home/lisk.sh restart"
       as uid lisk_user and gid lisk_user
-    stop program = "/opt/lisk/lisk/lisk.sh stop"
+    stop program = "lisk_home/lisk.sh stop"
       as uid lisk_user and gid lisk_user
 
 ######################### E N D   O F   C O N F - F I L E #########################
