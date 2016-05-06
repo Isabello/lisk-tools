@@ -13,7 +13,7 @@ sed -i "s|587|$response|g" monitrc
 read -r -p "What is your email login? (ex: admin@admin.net): " response
 sed -i "s|LoginUsername|$response|g" monitrc
 
-read -r -p "What is your email password? (ex: passw1): " response
+read -rsp "What is your email password? (ex: passw1): " response
 sed -i "s|LoginPassword|$response|g" monitrc
 
 read -r -p "What is your email servers encryption? (ex: sslv3 or tlsv1): " response
