@@ -1,9 +1,8 @@
 ####################### B E G I N   O F   C O N F - F I L E #######################
 
-check process node
+check process node with pidfile lisk_home/app.pid
 matching "node"
-    start program = "/usr/bin/sudo -u lisk_user /bin/bash -c 'lisk_home/lisk.sh restart'"
-    stop program = "/usr/bin/sudo -u lisk_user /bin/bash -c 'lisk_home/lisk.sh stop'"
-
-
+    start program = "lisk_home/lisk.sh start"  as uid "user" and gid "user"
+    stop program = "lisk_home/lisk.sh stop" as uid "user" and gid "user"
+    
 ######################### E N D   O F   C O N F - F I L E #########################
