@@ -2,8 +2,8 @@
 
 check process node
 matching "node"
-    start program = "/usr/bin/sudo -u lisk_user /bin/bash -c lisk_home/lisk.sh restart"
-    stop program = "/usr/bin/sudo -u lisk_user /bin/bash -c lisk_home/lisk.sh stop"
+    start program = "/usr/bin/sudo -u lisk_user /bin/bash -c 'lisk_home/lisk.sh restart'"
+    stop program = "/usr/bin/sudo -u lisk_user /bin/bash -c 'lisk_home/lisk.sh stop'"
 
 
 ######################### E N D   O F   C O N F - F I L E #########################
