@@ -66,7 +66,7 @@ mv lisk-tools-master/ lisk-tools
 
 rm -f master.zip
 
-cd Lisk_Management_Tools
+cd lisk-tools
 
 mkdir -p $tools_location/lisk-tools/ban_list
 mkdir -p $backup_location/pg_backup
