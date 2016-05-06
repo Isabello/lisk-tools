@@ -2,6 +2,8 @@ apt-get install monit -y
 
 cp monitrc.orig monitrc
 
+default_lisk_location=~/lisk-0.2.1-Linux-x86_64
+
 read -r -p "Who is your mail hoster? (ex: smtp.gmail.com): " response
 sed -i "s|SMTP.MAILHOSTER.COM|$response|g" monitrc
 
@@ -23,6 +25,13 @@ sed -i "s|SEND@MAILHOSTER.COM|$response|g" monitrc
 read -r -p "What email do you want to recieve alerts at? (ex: myemail@gmail.com): " response
 sed -i "s|RECEIVE@example.net|$response|g" monitrc
 
+read -r -p "Where do you have lisk installed to? (Default $default_lisk_location):  " lisk_location
+lisk_location=${lisk_location:-$default_lisk_location}
+if [[ ! -r "$lisk_location" ]]
+then
+echo "$lisk_location is not valid, please check and re-excute"
+exit 2
+
 rm -rf /etc/monit/monitrc
 cp ./monitrc /etc/monit/monitrc
 chmod 700 /etc/monit/monitrc
@@ -31,6 +40,7 @@ chmod 700 /etc/monit/monitrc
 /etc/init.d/monit restart
 
 rm -rf /etc/monit/conf.d/checknode*
+sed -i "s|lisk_home|$lisk_location|g" "check*"
 cp checknodeprocess /etc/monit/conf.d/checknodeprocess
 cp checknodelogs /etc/monit/conf.d/checknodelogs
 cp checknodesize /etc/monit/conf.d/checknodesize
