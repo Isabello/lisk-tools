@@ -1,0 +1,2 @@
+check file logs.log with path $lisk_home/logs.log
+if size > 1 GB then alert
