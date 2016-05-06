@@ -1,0 +1,30 @@
+
+####################### B E G I N   O F   C O N F - F I L E #######################
+
+set daemon 120            # check services at 2-minute intervals
+set logfile /var/log/monit.log
+set idfile /var/lib/monit/id
+set statefile /var/lib/monit/state
+set mailserver SMTP.MAILHOSTER.COM port 587         # primary mailserver
+     username "LoginUsername" password "LoginPassword"
+     using tlsv12
+     with timeout 30 seconds
+set eventqueue
+      basedir /var/lib/monit/events # set the base directory where events will be stored
+      slots 100                     # optionally limit the queue size
+set   mail-format {
+        from: SEND@MAILHOSTER.COM
+        subject: ALARM on Test-Server -- $EVENT $SERVICE
+        message: $EVENT Service $SERVICE
+        Date:        $DATE
+        Action:      $ACTION
+        Host:        $HOST
+        Description: $DESCRIPTION
+
+        Ciao,
+        Monit
+}
+set alert RECEIVE@example.net       # receive all alerts
+include /etc/monit/conf.d/*
+
+######################### E N D   O F   C O N F - F I L E #########################
