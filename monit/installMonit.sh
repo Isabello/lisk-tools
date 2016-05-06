@@ -36,6 +36,7 @@ fi
 rm -rf /etc/monit/monitrc
 mv ./monitrc /etc/monit/monitrc
 chmod 700 /etc/monit/monitrc
+chown root:root /etc/monit/monitrc
 rm -rf monitrc
 
 /etc/init.d/monit status
