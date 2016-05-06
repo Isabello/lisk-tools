@@ -5,9 +5,11 @@ cp monitrc.orig monitrc
 default_lisk_location=~/lisk-0.2.1-Linux-x86_64
 
 read -r -p "Who is your mail hoster? (ex: smtp.gmail.com): " response
+response=${response:-smtp.gmail.com}
 sed -i "s|SMTP.MAILHOSTER.COM|$response|g" monitrc
 
 read -r -p "What port do they use? (ex: 587): " response
+response=${response:-587}
 sed -i "s|587|$response|g" monitrc
 
 read -r -p "What is your email login? (ex: admin@admin.net): " response
@@ -17,10 +19,8 @@ read -rsp "What is your email password? (ex: passw1): " response
 sed -i "s|LoginPassword|$response|g" monitrc
 
 read -r -p "What is your email servers encryption? (ex: sslv3 or tlsv1): " response
+response=${response:-tlsv1}
 sed -i "s|tlsv12|$response|g" monitrc
-
-read -r -p "Where should emails show as coming from? (ex: liskmonitor@admin.net): " response
-sed -i "s|SEND@MAILHOSTER.COM|$response|g" monitrc
 
 read -r -p "What email do you want to recieve alerts at? (ex: myemail@gmail.com): " response
 sed -i "s|RECEIVE@example.net|$response|g" monitrc
