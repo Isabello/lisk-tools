@@ -5,7 +5,7 @@ This tool will backup the PG database with a time stamp. You can also use it to 
 
 Usage: 
 
-cd ~/Lisk_Management_Tools/
+cd ~/lisk-tools
 
 Backup Database
 
@@ -27,9 +27,9 @@ NOTE1: This tool relies on your kernel supporting the use of IPSET
 
 NOTE2: This tool requires that python be installed due to the external tools used.
 
-### Tool usage
+### Ban Tool usage
 
-cd ~/Lisk_Management_Tools/
+cd ~/lisk-tools/
 
 bash banTool.sh
 
@@ -41,7 +41,7 @@ Change directory to your home folder
 
 cd ~
 
-wget https://raw.githubusercontent.com/Isabello/Lisk_Management_Tools/master/installLiskTools.sh
+wget https://raw.githubusercontent.com/Isabello/lisk-tools/master/installLiskTools.sh
 
 bash installLiskTools.sh
 
