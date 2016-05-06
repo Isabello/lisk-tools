@@ -41,9 +41,6 @@ chmod 700 /etc/monit/monitrc
 chown root:root /etc/monit/monitrc
 rm -rf monitrc
 
-/etc/init.d/monit status
-/etc/init.d/monit restart
-
 rm -rf /etc/monit/conf.d/checknode*
 cp -rf ./checks/* .
 
@@ -56,3 +53,6 @@ cp checknodelogs /etc/monit/conf.d/checknodelogs
 cp checknodesize /etc/monit/conf.d/checknodesize
 
 rm -f ./checknode*
+
+/etc/init.d/monit status
+/etc/init.d/monit restart
