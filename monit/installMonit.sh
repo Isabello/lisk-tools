@@ -31,6 +31,7 @@ if [[ ! -r "$lisk_location" ]]
 then
 echo "$lisk_location is not valid, please check and re-excute"
 exit 2
+fi
 
 rm -rf /etc/monit/monitrc
 cp ./monitrc /etc/monit/monitrc
@@ -40,6 +41,8 @@ chmod 700 /etc/monit/monitrc
 /etc/init.d/monit restart
 
 rm -rf /etc/monit/conf.d/checknode*
+cp -rf ./checks/* .
+
 find ./check* -type f -exec  sed -i "s#lisk_home#$lisk_location#g" {} \;
 cp checknodeprocess /etc/monit/conf.d/checknodeprocess
 cp checknodelogs /etc/monit/conf.d/checknodelogs
