@@ -89,8 +89,10 @@ REPLY=${REPLY:-$REPLY}
 if [[  $REPLY =~ ^[Yy]$ ]]
 then
 sudo apt-get install jq curl
-nohup tools_location/liskForkRecovery.sh 0<&- &>/dev/null &
-
+nohup /bin/bash tools_location/liskForkRecovery.sh 0<&- &>/dev/null &
+cronjob_line="@reboot /bin/bash tools_location/liskForkRecovery.sh"
+crontab -l | grep -v 'liskForkRecovery.sh'  | crontab - 
+(crontab -l; echo "$cronjob_line" )  | crontab - |  echo "Auto Recovery Configured to run on Reboot"
 fi
 
 sed -i "s|lisk_home|$lisk_location|g" "liskForkRecovery.sh"
