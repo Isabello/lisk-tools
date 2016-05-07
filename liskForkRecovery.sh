@@ -9,7 +9,7 @@ if [ "$s1" == "$s2" ]
 then
 echo "$s1" " " "$s2"
 echo "Block Height is hung. Restoring from most recent backup"
-bash tools_location/liskBackupMan.sh autorestore
+bash tools_location/lisk-tools/liskBackupMan.sh autorestore
 sleep 300
 
 else
