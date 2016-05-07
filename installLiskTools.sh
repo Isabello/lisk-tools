@@ -30,31 +30,6 @@ echo "$lisk_location is not valid, please check and re-excute"
 exit 2;
 fi
 
-
-#read -p "Do you want to install the Ban Tool? Y or N: " -n 1 -r -i "N"
-#if [[ $REPLY =~ ^[Yy]$ ]]
-#then
-
-#sudo apt-get -qqy install ipset
-
-#sudo ipset create excluded_list hash:net
-
-#cd $tools_location
-
-#wget https://github.com/slasheks/lisk-api/archive/master.zip
-
-#unzip master.zip
-
-#mv lisk-api-master lisk-api
-
-#rm -f master.zip
-
-#cd lisk-api/python2/
-
-#wget https://raw.githubusercontent.com/vinay20045/json-to-csv/master/json_to_csv.py
-
-#fi
-
 rm -rf $tools_location/Lisk_Management_Tools &> /dev/null
 rm -rf $tools_location/lisk-tools &> /dev/null
 
@@ -88,7 +63,7 @@ read -r -p -n 1 "Do you want to automatically recover from forks? (Default Y): "
 REPLY=${REPLY:-$REPLY}
 if [[  $REPLY =~ ^[Yy]$ ]]
 then
-sudo apt-get install jq curl
+sudo apt-get install -qqy jq curl
 nohup /bin/bash tools_location/liskForkRecovery.sh 0<&- &>/dev/null &
 cronjob_line="@reboot /bin/bash tools_location/liskForkRecovery.sh"
 crontab -l | grep -v 'liskForkRecovery.sh'  | crontab - 
