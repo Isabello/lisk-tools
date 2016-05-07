@@ -112,7 +112,7 @@ bash lisk_home/lisk.sh start
 remote_snap() {
 
 echo "Select snapshot to grab or type exit to quit"
-remote_servers=("https://downloads.lisk.io/lisk/test/blockchain.db.gz" "https://lisktools.io/backups/lisk_pg_backup.gz")
+remote_servers=("https://downloads.lisk.io/lisk/test/blockchain.db.gz" "https://lisktools.io/backups/lisk_pg_backup.gz" "https://liskwallet.net/backup/lisk_pg_backup.gz")
 select SERVER in "${remote_servers[@]}" ;
         do
         case $SERVER in
