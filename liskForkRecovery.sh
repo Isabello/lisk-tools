@@ -1,7 +1,7 @@
 #!/bin/bash
 while true; do
 s1=`curl -s "http://127.0.0.1:7000/api/loader/status/sync"| jq '.height'`
-sleep 30
+sleep 50
 s2=`curl -s "http://127.0.0.1:7000/api/loader/status/sync"| jq '.height'`
 
 
