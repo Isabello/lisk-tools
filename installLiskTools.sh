@@ -3,6 +3,7 @@
 default_tools_location=~
 default_backup_location=~
 default_lisk_location=~/lisk-0.2.1-Linux-x86_64
+REPLY=Y
 
 read -r -p "Where do you want to install to? (Default $default_tools_location):  " tools_location
 tools_location=${tools_location:-$default_tools_location}
@@ -27,6 +28,13 @@ if [[ ! -r "$lisk_location" ]]
 then
 echo "$lisk_location is not valid, please check and re-excute"
 exit 2;
+fi
+
+read -r -p -n 1 "Do you want to automatically recover from forks? (Default Y): " $REPLY
+REPLY=${REPLY:-$REPLY}
+if [[  $REPLY =~ ^[Yy]$ ]]
+then
+
 fi
 
 #read -p "Do you want to install the Ban Tool? Y or N: " -n 1 -r -i "N"
