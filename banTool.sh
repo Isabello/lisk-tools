@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #initialize array variables and get current local node version
 
 python ~/lisk-api/python2/helper.py -o  peer_version > ban_list/my_version.json
