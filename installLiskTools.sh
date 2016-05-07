@@ -30,12 +30,6 @@ echo "$lisk_location is not valid, please check and re-excute"
 exit 2;
 fi
 
-read -r -p -n 1 "Do you want to automatically recover from forks? (Default Y): " $REPLY
-REPLY=${REPLY:-$REPLY}
-if [[  $REPLY =~ ^[Yy]$ ]]
-then
-
-fi
 
 #read -p "Do you want to install the Ban Tool? Y or N: " -n 1 -r -i "N"
 #if [[ $REPLY =~ ^[Yy]$ ]]
@@ -82,3 +76,21 @@ mkdir -p $backup_location/pg_backup
 sed -i "s|backup_location|$backup_location|g" "liskBackupMan.sh"
 sed -i "s|lisk_home|$lisk_location|g" "liskBackupMan.sh"
 sed -i "s|tools_location|$tools_location|g" "liskBackupMan.sh"
+
+read -r -p -n 1 "Do you want to automatically take backups? (Default Y): " $REPLY
+REPLY=${REPLY:-$REPLY}
+if [[  $REPLY =~ ^[Yy]$ ]]
+then
+bash $tools_location/lisk_tools/liskBackupMan.sh schedule
+fi
+
+read -r -p -n 1 "Do you want to automatically recover from forks? (Default Y): " $REPLY
+REPLY=${REPLY:-$REPLY}
+if [[  $REPLY =~ ^[Yy]$ ]]
+then
+sudo apt-get install jq curl
+nohup tools_location/liskForkRecovery.sh 0<&- &>/dev/null &
+
+fi
+
+sed -i "s|lisk_home|$lisk_location|g" "liskForkRecovery.sh"
