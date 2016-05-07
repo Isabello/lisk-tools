@@ -134,6 +134,27 @@ restore_db
 
 }
 
+auto_restore {
+  
+bash lisk_home/lisk.sh stop
+
+start_postgresql
+
+sleep 2
+
+create_user
+
+create_database
+
+restorefile=`find  backup_location/pg_backup/*.gz -maxdepth 1 -cmin -30`
+
+gunzip -c $restorefile | psql -q -U "$DB_USER" -d "$DB_NAME" &> /dev/null
+
+echo "Restore Complete!"
+
+bash lisk_home/lisk.sh start
+}
+
 list_backups() {
 ls -ltrA backup_location/pg_backup
 }
@@ -161,10 +182,13 @@ case $1 in
 "remote")
  remote_snap
  ;;
+ "autorestore")
+ auto_restore
+ ;;
 *)
   echo "Error: Unrecognized command."
   echo ""
-  echo "Available commands are: list backup restore schedule remote"
+  echo "Available commands are: list backup restore schedule remote autorestore"
   ;;
 esac
 
