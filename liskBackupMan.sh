@@ -134,7 +134,7 @@ restore_db
 
 }
 
-auto_restore {
+auto_restore() {
   
 bash lisk_home/lisk.sh stop
 
