@@ -14,6 +14,10 @@ DB_PASS="password"
 DB_DATA="$lisk_location/pgsql/data"
 DB_LOG_FILE="$lisk_location/pgsql.log"
 
+##remove old cron backup entries
+
+crontab -u $DB_USER -l | grep -v 'liskBackupMan.sh'  | crontab -u $DB_USER - 
+
 case "$UNAME" in
 "Darwin")
   DB_SUPER=$USER
