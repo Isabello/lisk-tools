@@ -1,16 +1,18 @@
 #!/bin/bash
 
+backup_location=backup_home
+lisk_location=lisk_home
 
 #Thanks Oliver for these pieces
-export PATH="lisk_home/bin:lisk_home/pgsql/bin:$PATH"
-export LD_LIBRARY_PATH="lisk_home/pgsql/lib:$LD_LIBRARY_PATH"
+export PATH="$lisk_location/bin:$lisk_location/pgsql/bin:$PATH"
+export LD_LIBRARY_PATH="$lisk_location/pgsql/lib:$LD_LIBRARY_PATH"
 
 UNAME=$(uname)
 DB_USER=$USER
 DB_NAME="lisk_test"
 DB_PASS="password"
-DB_DATA="lisk_home/pgsql/data"
-DB_LOG_FILE="lisk_home/pgsql.log"
+DB_DATA="$lisk_location/pgsql/data"
+DB_LOG_FILE="$lisk_location/pgsql.log"
 
 case "$UNAME" in
 "Darwin")
@@ -62,20 +64,11 @@ start_postgresql() {
 
 #End Thanks Oliver for these pieces
 
-##Backup DB
-backup_db() {
-  
-find backup_location/pg_backup/* -type f -mmin +720 -delete 2>/dev/null
-pg_dump "$DB_NAME" | gzip > backup_location/pg_backup/lisk_backup_block-`curl -s http://localhost:7000/api/loader/status/sync | cut -d: -f5 | cut -d} -f1`.gz  
-
-echo "Backup Complete!"
-}
-
 ##DB Restore
 restore_db() {
 
 echo "Select snapshot to restore or type exit to quit"
-select FILENAME in backup_location/pg_backup/*;
+select FILENAME in $backup_location/pg_backup/*;
         do
         case $FILENAME in
                 "$EXIT" )
@@ -91,7 +84,7 @@ select FILENAME in backup_location/pg_backup/*;
         esac
 done
 
-bash lisk_home/lisk.sh stop
+bash $lisk_location/lisk.sh stop
 
 start_postgresql
 sleep 2
@@ -104,7 +97,7 @@ gunzip -c $restore_file | psql -q -U "$DB_USER" -d "$DB_NAME" &> /dev/null
 
 echo "Restore Complete!"
 
-bash lisk_home/lisk.sh start
+bash $lisk_location/lisk.sh start
 
 }
 
@@ -122,9 +115,9 @@ select SERVER in "${remote_servers[@]}" ;
                 ;;
 
                 *)
-                rm -rf backup_location/pg_backup/blockchain.db.gz &> /dev/null
-                rm -rf backup_location/pg_backup/lisk_pg_backup.gz &> /dev/null
-                wget $SERVER -P backup_location/pg_backup/
+                rm -rf $backup_location/pg_backup/blockchain.db.gz &> /dev/null
+                rm -rf $backup_location/pg_backup/lisk_pg_backup.gz &> /dev/null
+                wget $SERVER -P $backup_location/pg_backup/
                 echo "Grabbed Remote Backup!"
                 break
                 ;;
@@ -134,61 +127,27 @@ restore_db
 
 }
 
-auto_restore() {
-  
-bash lisk_home/lisk.sh stop
-
-start_postgresql
-
-sleep 2
-
-create_user
-
-create_database
-
-restorefile=`find  backup_location/pg_backup/*.gz -maxdepth 1 -cmin -30`
-
-gunzip -c $restorefile | psql -q -U "$DB_USER" -d "$DB_NAME" &> /dev/null
-
-echo "Restore Complete!"
-
-bash lisk_home/lisk.sh start
-}
-
 list_backups() {
-ls -ltrA backup_location/pg_backup
+ls -ltrA $backup_location/pg_backup
 }
-
-schedule_backups() {
-cronjob_line="*/30 * * * * /bin/bash tools_location/lisk-tools/liskBackupMan.sh backup"
-crontab -u $DB_USER -l | grep -v 'liskBackupMan.sh'  | crontab -u $DB_USER - 
-(crontab -u $DB_USER -l; echo "$cronjob_line" )  | crontab -u $DB_USER - |  echo "Backups scheduled for every 30 minutes!"
-}
-
 
 case $1 in
 "restore")
   restore_db
   ;;
-"backup")
+"_backup")
   backup_db
   ;;
 "list")
   list_backups
   ;;
-"schedule")
- schedule_backups
-  ;;
 "remote")
  remote_snap
- ;;
- "autorestore")
- auto_restore
  ;;
 *)
   echo "Error: Unrecognized command."
   echo ""
-  echo "Available commands are: list backup restore schedule remote autorestore"
+  echo "Available commands are: list restore remote "
   ;;
 esac
 
