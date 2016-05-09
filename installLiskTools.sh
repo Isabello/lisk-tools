@@ -51,3 +51,5 @@ sed -i "s|backup_home|$backup_location|g" "liskBackupMan.sh"
 sed -i "s|lisk_home|$lisk_location|g" "liskBackupMan.sh"
 sed -i "s|tools_home|$tools_location|g" "liskBackupMan.sh"
 
+# Remove old crontab entry for autobackup
+crontab -u $USER -l | grep -v 'liskBackupMan.sh'  | crontab -u $USER - 
