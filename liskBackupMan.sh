@@ -62,15 +62,6 @@ start_postgresql() {
 
 #End Thanks Oliver for these pieces
 
-##Backup DB
-backup_db() {
-  
-find backup_location/pg_backup/* -type f -mmin +720 -delete 2>/dev/null
-pg_dump "$DB_NAME" | gzip > backup_location/pg_backup/lisk_backup_block-`curl -s http://localhost:7000/api/loader/status/sync | cut -d: -f5 | cut -d} -f1`.gz  
-
-echo "Backup Complete!"
-}
-
 ##DB Restore
 restore_db() {
 
@@ -134,61 +125,27 @@ restore_db
 
 }
 
-auto_restore() {
-  
-bash lisk_home/lisk.sh stop
-
-start_postgresql
-
-sleep 2
-
-create_user
-
-create_database
-
-restorefile=`find  backup_location/pg_backup/*.gz -maxdepth 1 -cmin -30`
-
-gunzip -c $restorefile | psql -q -U "$DB_USER" -d "$DB_NAME" &> /dev/null
-
-echo "Restore Complete!"
-
-bash lisk_home/lisk.sh start
-}
-
 list_backups() {
 ls -ltrA backup_location/pg_backup
 }
-
-schedule_backups() {
-cronjob_line="*/30 * * * * /bin/bash tools_location/lisk-tools/liskBackupMan.sh backup"
-crontab -u $DB_USER -l | grep -v 'liskBackupMan.sh'  | crontab -u $DB_USER - 
-(crontab -u $DB_USER -l; echo "$cronjob_line" )  | crontab -u $DB_USER - |  echo "Backups scheduled for every 30 minutes!"
-}
-
 
 case $1 in
 "restore")
   restore_db
   ;;
-"backup")
+"_backup")
   backup_db
   ;;
 "list")
   list_backups
   ;;
-"schedule")
- schedule_backups
-  ;;
 "remote")
  remote_snap
- ;;
- "autorestore")
- auto_restore
  ;;
 *)
   echo "Error: Unrecognized command."
   echo ""
-  echo "Available commands are: list backup restore schedule remote autorestore"
+  echo "Available commands are: list restore remote "
   ;;
 esac
 
