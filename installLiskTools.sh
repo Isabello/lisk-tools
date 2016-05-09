@@ -29,30 +29,6 @@ echo "$lisk_location is not valid, please check and re-excute"
 exit 2;
 fi
 
-#read -p "Do you want to install the Ban Tool? Y or N: " -n 1 -r -i "N"
-#if [[ $REPLY =~ ^[Yy]$ ]]
-#then
-
-#sudo apt-get -qqy install ipset
-
-#sudo ipset create excluded_list hash:net
-
-#cd $tools_location
-
-#wget https://github.com/slasheks/lisk-api/archive/master.zip
-
-#unzip master.zip
-
-#mv lisk-api-master lisk-api
-
-#rm -f master.zip
-
-#cd lisk-api/python2/
-
-#wget https://raw.githubusercontent.com/vinay20045/json-to-csv/master/json_to_csv.py
-
-#fi
-
 rm -rf $tools_location/Lisk_Management_Tools &> /dev/null
 rm -rf $tools_location/lisk-tools &> /dev/null
 
@@ -71,6 +47,7 @@ cd lisk-tools
 mkdir -p $tools_location/lisk-tools/ban_list
 mkdir -p $backup_location/pg_backup
 
-sed -i "s|backup_location|$backup_location|g" "liskBackupMan.sh"
+sed -i "s|backup_home|$backup_location|g" "liskBackupMan.sh"
 sed -i "s|lisk_home|$lisk_location|g" "liskBackupMan.sh"
-sed -i "s|tools_location|$tools_location|g" "liskBackupMan.sh"
+sed -i "s|tools_home|$tools_location|g" "liskBackupMan.sh"
+
