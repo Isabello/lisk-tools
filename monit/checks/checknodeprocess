@@ -1,8 +1,0 @@
-####################### B E G I N   O F   C O N F - F I L E #######################
-
-check process node with pidfile lisk_home/app.pid
-matching "node"
-    start program = "lisk_home/lisk.sh start"  as uid "user" and gid "user"
-    stop program = "lisk_home/lisk.sh stop" as uid "user" and gid "user"
-    
-######################### E N D   O F   C O N F - F I L E #########################
