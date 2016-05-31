@@ -2,7 +2,7 @@ apt-get install monit -y
 
 cp monitrc.orig monitrc
 
-default_lisk_location=~/lisk-0.2.1-Linux-x86_64
+default_lisk_location=~/lisk-main
 
 read -r -p "Who is your mail hoster? (default: smtp.gmail.com): " response
 response=${response:-smtp.gmail.com}
