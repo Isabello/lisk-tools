@@ -7,8 +7,8 @@ export LD_LIBRARY_PATH="lisk_home/pgsql/lib:$LD_LIBRARY_PATH"
 
 UNAME=$(uname)
 DB_USER=$USER
-DB_NAME="lisk_test"
-DB_PASS="password"
+DB_NAME="lisk_main"
+DB_PASS=""
 DB_DATA="lisk_home/pgsql/data"
 DB_LOG_FILE="lisk_home/pgsql.log"
 
